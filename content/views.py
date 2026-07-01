@@ -1,8 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Comment
-from .serializers import CommentSerializer
+from .models import Comment, People
+from .serializers import CommentSerializer, PeopleSerializer
 
 
 class CommentAPIView(APIView):
@@ -19,3 +19,14 @@ class CommentAPIView(APIView):
             return Response(serializer.data)
         else:
             return Response({'xabar': "kiritilgan malumotlar xato"})
+        
+
+
+class PeopleAPIView(APIView):
+    def get(self, request):
+        people = People.objects.all()
+        serializer = PeopleSerializer(people, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        pass
